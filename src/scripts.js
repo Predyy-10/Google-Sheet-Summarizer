@@ -17,9 +17,13 @@ function getData(){
 }
 function showElement() {
   document.getElementById("hc").style.display = "block";
+  document.getElementById("signout").style.display = "block";
+  document.getElementById("signin").style.display = "none";
 }
 function hideElement() {
   document.getElementById("hc").style.display = "none";
+  document.getElementById("signout").style.display = "none";
+  document.getElementById("signin").style.display = "block";
 }
 function makeApiCall(uid,sn) {
   var params = {
