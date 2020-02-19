@@ -9,7 +9,7 @@ function getData(){
     alert("Please Enter Google Sheet ID");
   }
   else if(y.value.length == 0){
-    alert("Please Enter Google Sheet Name");
+    getAllSheets(uid);
   }
   else{
     makeApiCall(uid,sn);
@@ -24,6 +24,25 @@ function hideElement() {
   document.getElementById("hc").style.display = "none";
   document.getElementById("signout").style.display = "none";
   document.getElementById("signin").style.display = "block";
+}
+function getAllSheets(uid){
+  gapi.client.sheets.spreadsheets.get({
+        spreadsheetId: uid
+    }).then(function(response) {
+        console.log(response.result.sheets);
+        allSheetDisplay(uid,response.result);
+    }, function(response) {
+        console.log('Error: ' + response.result.error.message);
+    });
+}
+function allSheetDisplay(uid,values){
+  var len = values.sheets.length;
+  var i,j;
+  for(i=0;i<len;i++){
+    var sn;
+    sn = values.sheets[i].properties.title
+    makeApiCall(uid,sn);
+  }
 }
 function makeApiCall(uid,sn) {
   var params = {
@@ -125,5 +144,5 @@ function processing(values,len){
   for(var prop in tot) { 
         string+= prop + ': ' + tot[prop] + '</br>'; 
       } 
-  out.innerHTML = string;
+  out.innerHTML += string;
 }
