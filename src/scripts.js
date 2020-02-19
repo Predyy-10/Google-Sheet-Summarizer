@@ -48,6 +48,9 @@ function makeApiCall(uid,sn) {
     processing(response.result.values,response.result.values.length);
   }, function(reason) {
     console.error('error: ' + reason.result.error.message);
+    var string = reason.result.error.message;
+    var out = document.getElementById('output');
+    out.innerHTML = string;
   });
 }
 
